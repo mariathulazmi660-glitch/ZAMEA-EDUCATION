@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMARTKIDS COMPETITION by ZAMÉA EDUCATION - Lomba Matematika & Coding TK & SD</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#3B82F6',
+                            purple: '#8B5CF6',
+                            yellow: '#F59E0B',
+                            green: '#10B981',
+                            dark: '#1E293B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, .font-heading { font-family: 'Poppins', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .nav-btn.active {
+            color: #3B82F6;
+            font-weight: 700;
+            border-bottom: 2px solid #3B82F6;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur shadow-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-blue to-brand-purple flex items-center justify-center text-white shadow-lg shadow-brand-blue/30 text-2xl font-black">
+                    ZE
+                </div>
+                <div>
+                    <span class="font-heading font-black text-xl bg-gradient-to-r from-brand-blue to-brand-purple bg-clip-text text-transparent block leading-none">SMARTKIDS</span>
+                    <span class="text-xs font-bold tracking-wider text-purple-600 uppercase">by ZAMÉA EDUCATION</span>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-6 font-medium text-sm text-slate-600">
+                <button onclick="switchTab('home')" class="hover:text-brand-blue py-2 transition-colors nav-btn active" id="nav-home">Beranda</button>
+                <button onclick="switchTab('kategori')" class="hover:text-brand-blue py-2 transition-colors nav-btn" id="nav-kategori">Kategori & Kisi-Kisi</button>
+                <button onclick="switchTab('alur')" class="hover:text-brand-blue py-2 transition-colors nav-btn" id="nav-alur">Alur & Syarat</button>
+                <button onclick="switchTab('biaya')" class="hover:text-brand-blue py-2 transition-colors nav-btn" id="nav-biaya">Pembayaran</button>
+                <button onclick="switchTab('demo')" class="hover:text-brand-blue py-2 transition-colors nav-btn" id="nav-demo">Simulasi Soal</button>
+                <button onclick="switchTab('admin')" class="hover:text-slate-900 text-xs px-3 py-1.5 rounded-lg bg-slate-100 font-semibold" id="nav-admin"><i class="fa-solid fa-lock mr-1"></i> Panitia Panel</button>
+            </nav>
+
+            <div class="hidden md:block">
+                <button onclick="openRegisterModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-blue to-brand-purple text-white font-semibold text-sm shadow-md hover:shadow-lg hover:scale-[1.02] transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    Daftar Sekarang
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-slate-600 focus:outline-none" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('home'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-slate-700">Beranda</button>
+            <button onclick="switchTab('kategori'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-slate-700">Kategori & Kisi-Kisi</button>
+            <button onclick="switchTab('alur'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-slate-700">Alur & Syarat</button>
+            <button onclick="switchTab('biaya'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-slate-700">Pembayaran</button>
+            <button onclick="switchTab('demo'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-slate-700">Simulasi Soal</button>
+            <button onclick="switchTab('admin'); toggleMobileMenu()" class="block w-full text-left py-2 font-medium text-slate-500 text-sm">Panitia Panel</button>
+            <button onclick="openRegisterModal(); toggleMobileMenu()" class="w-full py-2.5 rounded-xl bg-brand-blue text-white font-semibold text-center block mt-2">Daftar Sekarang</button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- ================= HOME TAB ================= -->
+        <section id="tab-home" class="tab-content">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-b from-blue-50/80 via-purple-50/40 to-slate-50 py-12 md:py-20 px-4">
+                <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-100 text-brand-purple font-semibold text-xs mb-4">
+                            <i class="fa-solid fa-award"></i> Presented by ZAMÉA EDUCATION • Tingkat TK & SD
+                        </div>
+                        <h1 class="font-heading text-3xl md:text-5xl font-black text-slate-900 leading-tight mb-4">
+                            Wadah Generasi Emas Berpikir <span class="bg-gradient-to-r from-brand-blue to-brand-purple bg-clip-text text-transparent">Logis & Komputasional</span>
+                        </h1>
+                        <p class="text-slate-600 text-base md:text-lg mb-6 leading-relaxed">
+                            SMARTKIDS COMPETITION oleh ZAMÉA EDUCATION mempertemukan talenta muda TK A-B & Kelas 1-6 SD dalam melatih ketajaman numerik dan pemrograman dasar melalui sistem lomba yang terstruktur, jujur, dan terawasi via Zoom.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="openRegisterModal()" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-blue to-brand-purple text-white font-bold text-base shadow-xl shadow-brand-blue/20 hover:scale-[1.02] transition-all">
+                                <i class="fa-solid fa-user-plus mr-2"></i> Daftar Lomba
+                            </button>
+                            <button onclick="switchTab('demo')" class="px-6 py-3.5 rounded-xl bg-white border border-slate-300 text-slate-700 font-bold text-base hover:bg-slate-50 transition-all">
+                                <i class="fa-solid fa-laptop-code mr-2 text-brand-purple"></i> Coba Simulasi Ujian
+                            </button>
+                        </div>
+
+                        <!-- Quick Badges -->
+                        <div class="mt-8 grid grid-cols-3 gap-4 border-t border-slate-200/60 pt-6">
+                            <div>
+                                <div class="text-xl md:text-2xl font-black text-slate-800">2 Kategori</div>
+                                <div class="text-xs text-slate-500">Matematika & Coding</div>
+                            </div>
+                            <div>
+                                <div class="text-xl md:text-2xl font-black text-slate-800">TK & SD</div>
+                                <div class="text-xs text-slate-500">TK A-B & Kelas 1 - 6 SD</div>
+                            </div>
+                            <div>
+                                <div class="text-xl md:text-2xl font-black text-slate-800">Sertifikat</div>
+                                <div class="text-xs text-slate-500">Nasional & Medali</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual Card -->
+                    <div class="relative">
+                        <div class="absolute -top-6 -left-6 w-32 h-32 bg-yellow-300/30 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-purple-300/30 rounded-full blur-2xl"></div>
+                        
+                        <div class="relative bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100">
+                            <div class="flex items-center justify-between mb-6 border-b pb-4">
+                                <div>
+                                    <h3 class="font-bold text-slate-800">Ringkasan Jadwal</h3>
+                                    <p class="text-xs text-slate-500">SMARTKIDS Season 2026</p>
+                                </div>
+                                <span class="px-3 py-1 bg-emerald-100 text-emerald-700 font-bold text-xs rounded-full">Pendaftaran Dibuka</span>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-blue-100 text-brand-blue flex items-center justify-center shrink-0 font-bold">1</div>
+                                    <div>
+                                        <div class="font-bold text-sm text-slate-800">Pendaftaran & Gelombang 1</div>
+                                        <div class="text-xs text-slate-500">1 Oktober - 25 Oktober 2026</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-purple-100 text-brand-purple flex items-center justify-center shrink-0 font-bold">2</div>
+                                    <div>
+                                        <div class="font-bold text-sm text-slate-800">Technical Meeting & Zoom Test</div>
+                                        <div class="text-xs text-slate-500">30 Oktober 2026 (Live via Zoom)</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 font-bold">3</div>
+                                    <div>
+                                        <div class="font-bold text-sm text-slate-800">Pelaksanaan Lomba Utama</div>
+                                        <div class="text-xs text-slate-500">1 November 2026 (Online)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Location / Mode Banner -->
+                            <div class="mt-6 bg-slate-900 text-white rounded-2xl p-4 flex items-center gap-3">
+                                <i class="fa-solid fa-video text-red-400 text-xl"></i>
+                                <div class="text-xs">
+                                    <div class="font-semibold text-slate-200">Lokasi / Media Lomba:</div>
+                                    <div class="text-slate-400">Zoom Meeting Room + CBT Online System</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Cards Showcase -->
+            <div class="max-w-7xl mx-auto px-4 py-12">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <h2 class="font-heading text-2xl md:text-3xl font-bold text-slate-900">2 Kategori Utama</h2>
+                    <p class="text-slate-600 text-sm mt-2">Dirancang khusus untuk mengukur kemampuan logika kritis anak sekolah dasar dan TK.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Math Card -->
+                    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-amber-100 rounded-bl-full -z-0 opacity-50 group-hover:scale-110 transition-transform"></div>
+                        <div class="relative z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-2xl font-bold mb-4 shadow-lg shadow-amber-500/30">
+                                <i class="fa-solid fa-calculator"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-slate-900 mb-2">Lomba Matematika Logika</h3>
+                            <p class="text-slate-600 text-sm mb-4 leading-relaxed">
+                                Berfokus pada penalaran angka, pola, logika ruang, dan pemecahan masalah tanpa hafalan rumus rumit.
+                            </p>
+                            <div class="space-y-2 mb-6">
+                                <div class="flex items-center text-xs text-slate-600 gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Level Early Years (TK A & TK B)</div>
+                                <div class="flex items-center text-xs text-slate-600 gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Level Junior (Kelas 1 - 3 SD)</div>
+                                <div class="flex items-center text-xs text-slate-600 gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Level Senior (Kelas 4 - 6 SD)</div>
+                            </div>
+                            <button onclick="switchTab('kategori')" class="text-amber-600 font-bold text-sm hover:underline flex items-center gap-1">
+                                Lihat Kisi-Kisi <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Coding Card -->
+                    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-purple-100 rounded-bl-full -z-0 opacity-50 group-hover:scale-110 transition-transform"></div>
+                        <div class="relative z-10">
+                            <div class="w-14 h-14 rounded-2xl bg-brand-purple text-white flex items-center justify-center text-2xl font-bold mb-4 shadow-lg shadow-brand-purple/30">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-xl text-slate-900 mb-2">Lomba Computational Coding</h3>
+                            <p class="text-slate-600 text-sm mb-4 leading-relaxed">
+                                Menguji kemampuan berpikir algoritma, navigasi visual, penyusunan blok perintah, dan alur logika pemrograman.
+                            </p>
+                            <div class="space-y-2 mb-6">
+                                <div class="flex items-center text-xs text-slate-600 gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Level Early Years (TK A & TK B Visual Logic)</div>
+                                <div class="flex items-center text-xs text-slate-600 gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Level Junior (Kelas 1 - 3 SD Block Coding)</div>
+                                <div class="flex items-center text-xs text-slate-600 gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Level Senior (Kelas 4 - 6 SD Algoritma & Problem Solving)</div>
+                            </div>
+                            <button onclick="switchTab('kategori')" class="text-brand-purple font-bold text-sm hover:underline flex items-center gap-1">
+                                Lihat Kisi-Kisi <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== KATEGORI & KISI-KISI TAB ========== -->
+        <section id="tab-kategori" class="tab-content hidden max-w-7xl mx-auto px-4 py-10">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs font-bold text-brand-purple uppercase tracking-wider bg-purple-100 px-3 py-1 rounded-full">ZAMÉA EDUCATION Silabus</span>
+                <h2 class="font-heading text-3xl font-bold text-slate-900 mt-2">Kisi-Kisi Lomba (TK A-B & Kelas 1-6 SD)</h2>
+                <p class="text-slate-600 text-sm mt-1">Panduan materi persiapan yang telah disesuaikan dengan tingkat usia anak.</p>
+            </div>
+
+            <!-- Tab Sub-toggle -->
+            <div class="flex justify-center mb-8">
+                <div class="bg-slate-200 p-1 rounded-xl flex gap-1">
+                    <button id="btn-kisi-math" onclick="toggleKisiTab('math')" class="px-5 py-2 rounded-lg font-bold text-sm bg-white text-slate-800 shadow-sm transition-all">Matematika</button>
+                    <button id="btn-kisi-coding" onclick="toggleKisiTab('coding')" class="px-5 py-2 rounded-lg font-bold text-sm text-slate-600 transition-all">Coding</button>
+                </div>
+            </div>
+
+            <!-- Content Math -->
+            <div id="kisi-math-content" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                    <div class="flex items-center gap-2 text-pink-600 font-bold mb-3">
+                        <i class="fa-solid fa-shapes"></i> Early Years (TK A & TK B)
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside">
+                        <li>Mengenal Urutan Angka & Pola Warna Sederhana</li>
+                        <li>Perbandingan Jumlah (Lebih Banyak / Lebih Sedikit)</li>
+                        <li>Bentuk Geometri Dasar & Pengelompokan Objek</li>
+                        <li>Teka-teki Logika Visual Gambar</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                    <div class="flex items-center gap-2 text-amber-600 font-bold mb-3">
+                        <i class="fa-solid fa-calculator"></i> Level Junior (Kelas 1 - 3 SD)
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside">
+                        <li>Pola Deret Angka & Penjumlahan/Pengurangan Teka-Teki</li>
+                        <li>Logika Timbangan & Perbandingan Bobot</li>
+                        <li>Spasial & Pengoperasian Jam/Waktu Sederhana</li>
+                        <li>Soal Cerita Penalaran Dasar</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                    <div class="flex items-center gap-2 text-amber-700 font-bold mb-3">
+                        <i class="fa-solid fa-chart-pie"></i> Level Senior (Kelas 4 - 6 SD)
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside">
+                        <li>Aritmatika Sosial & Penalaran Cerita Kompleks</li>
+                        <li>Geometri Luas, Keliling, Volume & Bangun Datar/Ruang</li>
+                        <li>Kombinatorika, Peluang & Teka-teki Logika Matematika</li>
+                        <li>Problem Solving & Pemecahan Masalah Komputasional</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Content Coding -->
+            <div id="kisi-coding-content" class="grid grid-cols-1 md:grid-cols-3 gap-6 hidden">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                    <div class="flex items-center gap-2 text-pink-600 font-bold mb-3">
+                        <i class="fa-solid fa-puzzle-piece"></i> Early Years (TK A & TK B)
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside">
+                        <li>Arah Navigasi Dasar (Panah Kiri, Kanan, Atas, Bawah)</li>
+                        <li>Labirin Visual (Membantu Karakter Mencapai Tujuan)</li>
+                        <li>Urutan Langkah Sederhana (Step-by-Step)</li>
+                        <li>Mencari Bayangan & Pasangan Gambar Logis</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                    <div class="flex items-center gap-2 text-brand-purple font-bold mb-3">
+                        <i class="fa-solid fa-cubes"></i> Level Junior (Kelas 1 - 3 SD)
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside">
+                        <li>Sequencing & Perintah Beruntun</li>
+                        <li>Pengenalan Pola Perulangan (Looping) Sederhana</li>
+                        <li>Debugging Gambar (Menemukan Perintah yang Salah)</li>
+                        <li>Konsep Blok Gerak Karakter</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                    <div class="flex items-center gap-2 text-purple-800 font-bold mb-3">
+                        <i class="fa-solid fa-code-branch"></i> Level Senior (Kelas 4 - 6 SD)
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside">
+                        <li>Konsep Block Coding / Scratch (If-Else, Repeat, Variables)</li>
+                        <li>Logika Kondisional & Pemrograman Terstruktur</li>
+                        <li>Analisis Flowchart (Bagan Alur Pemrograman)</li>
+                        <li>Algoritma Pemecahan Masalah & Efisiensi Kode</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== ALUR & SYARAT TAB ========== -->
+        <section id="tab-alur" class="tab-content hidden max-w-7xl mx-auto px-4 py-10">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs font-bold text-brand-blue uppercase tracking-wider bg-blue-100 px-3 py-1 rounded-full">Prosedur Sistematis</span>
+                <h2 class="font-heading text-3xl font-bold text-slate-900 mt-2">Alur Pendaftaran & Lomba</h2>
+                <p class="text-slate-600 text-sm mt-1">Sistematis, terverifikasi, dan menjamin kenyamanan orang tua serta kejujuran peserta.</p>
+            </div>
+
+            <div class="relative border-l-2 border-brand-blue/30 ml-4 md:ml-32 space-y-8 py-4">
+                <!-- Step 1 -->
+                <div class="relative pl-6 md:pl-10">
+                    <div class="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-brand-blue text-white font-bold flex items-center justify-center text-sm shadow">1</div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-800 text-lg">Mengisi Form Pendaftaran</h4>
+                        <p class="text-slate-600 text-sm mt-1">Orang tua/wali mengklik tombol 'Daftar' di situs ini untuk melengkapi data anak dan memilih kategori lomba.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative pl-6 md:pl-10">
+                    <div class="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-brand-blue text-white font-bold flex items-center justify-center text-sm shadow">2</div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-800 text-lg">Pembayaran & Bukti Transfer</h4>
+                        <p class="text-slate-600 text-sm mt-1">Transfer biaya pendaftaran sesuai dengan instruksi rekening yang tertera di menu pembayaran.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative pl-6 md:pl-10">
+                    <div class="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-emerald-500 text-white font-bold flex items-center justify-center text-sm shadow"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 border-l-4 border-l-emerald-500">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-slate-800 text-lg">Konfirmasi Manual via WhatsApp Admin</h4>
+                            <span class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 font-bold rounded">Tahap Penting</span>
+                        </div>
+                        <p class="text-slate-600 text-sm mt-1">
+                            Kirimkan bukti transfer & nama peserta ke WhatsApp Admin. Kami melakukan konfirmasi manual karena akun WA umumnya milik orang tua, agar data nama siswa tercatat dengan akurat.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative pl-6 md:pl-10">
+                    <div class="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-brand-purple text-white font-bold flex items-center justify-center text-sm shadow">4</div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-800 text-lg">Dimasukkan ke WhatsApp Group Resmi</h4>
+                        <p class="text-slate-600 text-sm mt-1">Setelah diverifikasi, admin akan menambahkan WhatsApp Anda ke grup resmi peserta untuk mendapatkan info kartu ujian, link Zoom, dan jadwal sosialisasi.</p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="relative pl-6 md:pl-10">
+                    <div class="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-amber-500 text-white font-bold flex items-center justify-center text-sm shadow"><i class="fa-solid fa-video text-xs"></i></div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-800 text-lg">Sosialisasi & Lomba via Zoom Proctoring</h4>
+                        <p class="text-slate-600 text-sm mt-1">
+                            Sosialisasi dan hari pelaksanaan lomba wajib mengaktifkan kamera Zoom agar panitia memantau langsung bahwa anak mengerjakan sendiri secara jujur.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== BIAYA & PEMBAYARAN TAB ========== -->
+        <section id="tab-biaya" class="tab-content hidden max-w-7xl mx-auto px-4 py-10">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider bg-emerald-100 px-3 py-1 rounded-full">Investasi Prestasi</span>
+                <h2 class="font-heading text-3xl font-bold text-slate-900 mt-2">Biaya Pendaftaran</h2>
+                <p class="text-slate-600 text-sm mt-1">Pilih sesuai kategori yang diikuti peserta.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Single Category -->
+                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm relative">
+                    <h3 class="font-heading font-bold text-slate-800 text-xl">1 Kategori</h3>
+                    <p class="text-xs text-slate-500">Matematika ATAU Coding</p>
+                    <div class="my-6">
+                        <span class="text-4xl font-black text-slate-900">Rp 40.000</span>
+                        <span class="text-xs text-slate-500">/ siswa</span>
+                    </div>
+                    <ul class="space-y-3 text-sm text-slate-600 mb-8">
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Akses Ujian CBT Online</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Akses Grup WA & Pembahasan</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> E-Sertifikat Nasional</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Medali bagi Pemenang</li>
+                    </ul>
+                    <button onclick="openRegisterModal('Matematika')" class="w-full py-3 rounded-xl bg-slate-900 text-white font-bold hover:bg-slate-800 transition-colors">Pilih Paket Ini</button>
+                </div>
+
+                <!-- Bundling BOTH Categories -->
+                <div class="bg-gradient-to-b from-purple-50 to-white rounded-3xl p-8 border-2 border-brand-purple shadow-lg relative">
+                    <div class="absolute -top-3 right-6 bg-brand-purple text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Paket Hemat</div>
+                    <h3 class="font-heading font-bold text-slate-800 text-xl">Bundling Paket Hemat</h3>
+                    <p class="text-xs text-slate-500">Matematika DAN Coding Sekaligus</p>
+                    <div class="my-6">
+                        <span class="text-4xl font-black text-brand-purple">Rp 70.000</span>
+                        <span class="text-xs text-slate-500">/ siswa</span>
+                    </div>
+                    <ul class="space-y-3 text-sm text-slate-600 mb-8">
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Bebas Ikut Kedua Lomba</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> 2 E-Sertifikat Kategori</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Kesempatan Medali Ganda</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Bonus Modul Latihan</li>
+                    </ul>
+                    <button onclick="openRegisterModal('Bundling Matematika + Coding')" class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-blue to-brand-purple text-white font-bold shadow-lg shadow-brand-purple/20 hover:scale-[1.01] transition-transform">Pilih Paket Hemat</button>
+                </div>
+            </div>
+
+            <!-- Bank Account Info -->
+            <div class="max-w-2xl mx-auto mt-12 bg-white rounded-2xl p-6 border border-slate-200">
+                <h4 class="font-bold text-slate-800 mb-4 text-center">Rekening Resmi Pembayaran</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex justify-between items-center">
+                        <div>
+                            <div class="text-xs text-slate-500 font-bold">BANK BCA</div>
+                            <div class="font-mono font-bold text-slate-800" id="rek-bca">8830-1928-441</div>
+                            <div class="text-xs text-slate-600">a.n. Smartkids Zamea</div>
+                        </div>
+                        <button onclick="copyAccount('rek-bca')" class="p-2 text-brand-blue hover:bg-blue-50 rounded-lg text-xs font-bold"><i class="fa-solid fa-copy"></i> Salin</button>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex justify-between items-center">
+                        <div>
+                            <div class="text-xs text-slate-500 font-bold">BANK MANDIRI</div>
+                            <div class="font-mono font-bold text-slate-800" id="rek-mandiri">1370-0012-9981</div>
+                            <div class="text-xs text-slate-600">a.n. Smartkids Zamea</div>
+                        </div>
+                        <button onclick="copyAccount('rek-mandiri')" class="p-2 text-brand-blue hover:bg-blue-50 rounded-lg text-xs font-bold"><i class="fa-solid fa-copy"></i> Salin</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SIMULASI UJIAN DEMO TAB ========== -->
+        <section id="tab-demo" class="tab-content hidden max-w-4xl mx-auto px-4 py-10">
+            <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200 shadow-sm">
+                <div class="flex items-center justify-between border-b pb-4 mb-6">
+                    <div>
+                        <span class="text-xs px-2.5 py-1 bg-amber-100 text-amber-700 font-bold rounded-md">Uji Coba CBT</span>
+                        <h2 class="font-heading text-xl font-bold text-slate-800 mt-1">Simulasi Soal Interaktif</h2>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs text-slate-500">Waktu Simulasi</div>
+                        <div class="font-mono font-bold text-brand-blue text-lg" id="demo-timer">05:00</div>
+                    </div>
+                </div>
+
+                <!-- Quiz Engine Container -->
+                <div id="quiz-container">
+                    <div class="mb-6">
+                        <span id="quiz-category" class="text-xs font-bold text-brand-purple uppercase">Matematika - Soal #1</span>
+                        <h3 id="quiz-question" class="text-base md:text-lg font-semibold text-slate-800 mt-2">
+                            Loading soal...
+                        </h3>
+                    </div>
+
+                    <div class="space-y-3 mb-8" id="quiz-options">
+                        <!-- Options generated by JS -->
+                    </div>
+
+                    <div class="flex justify-between items-center border-t pt-4">
+                        <button onclick="prevQuestion()" id="btn-prev-quiz" class="px-4 py-2 rounded-xl text-slate-500 font-bold text-sm bg-slate-100 disabled:opacity-50" disabled>Sebelumnya</button>
+                        <button onclick="nextQuestion()" id="btn-next-quiz" class="px-5 py-2 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-blue-600">Selanjutnya</button>
+                    </div>
+                </div>
+
+                <!-- Result View (Hidden initially) -->
+                <div id="quiz-result" class="hidden text-center py-8">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-2xl text-slate-800">Simulasi Selesai!</h3>
+                    <p class="text-slate-600 text-sm mt-2">Skor Kamu: <span id="quiz-score" class="font-black text-brand-blue text-xl">0/3</span></p>
+                    <p class="text-xs text-slate-500 mt-1">Sistem pengerjaan lomba sesungguhnya akan berjalan mudah seperti ini melalui web/GForm dengan pengawasan Zoom.</p>
+                    <button onclick="resetQuiz()" class="mt-6 px-6 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm">Coba Lagi</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== PANITIA ADMIN PANEL TAB ========== -->
+        <section id="tab-admin" class="tab-content hidden max-w-7xl mx-auto px-4 py-10">
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-6 pb-4 border-b">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="font-heading text-xl font-bold text-slate-800">Dashboard Panitia ZAMÉA EDUCATION</h2>
+                            <span class="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs font-bold rounded">Internal Only</span>
+                        </div>
+                        <p class="text-xs text-slate-500">Kelola konfirmasi WA peserta dan pembagian grup.</p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button onclick="exportParticipants()" class="px-3 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 flex items-center gap-1.5">
+                            <i class="fa-solid fa-file-excel"></i> Export Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Admin Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+                                <th class="p-3">ID Reg</th>
+                                <th class="p-3">Nama Peserta</th>
+                                <th class="p-3">Kelas / SD</th>
+                                <th class="p-3">Kategori</th>
+                                <th class="p-3">No. WA Orang Tua</th>
+                                <th class="p-3">Status Konfirmasi</th>
+                                <th class="p-3 text-right">Aksi Panitia</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body" class="divide-y divide-slate-100 text-slate-700">
+                            <!-- Dynamic rows via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- REGISTRATION FORM MODAL -->
+    <div id="register-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-3xl p-6 md:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeRegisterModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600" aria-label="Close Modal">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <h3 class="font-heading font-bold text-2xl text-slate-800 mb-1">Form Pendaftaran Lomba</h3>
+            <p class="text-xs text-slate-500 mb-6">Penyelenggara: ZAMÉA EDUCATION (Jenjang TK A-B & Kelas 1-6 SD)</p>
+
+            <form id="form-registration" onsubmit="handleRegistrationSubmit(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nama Lengkap Siswa *</label>
+                    <input type="text" id="reg-nama" required placeholder="Contoh: Muhammad Bintang" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-blue">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Jenjang / Kelas *</label>
+                        <select id="reg-kelas" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-blue">
+                            <option value="">Pilih Jenjang/Kelas</option>
+                            <option value="TK A">TK A</option>
+                            <option value="TK B">TK B</option>
+                            <option value="Kelas 1 SD">Kelas 1 SD</option>
+                            <option value="Kelas 2 SD">Kelas 2 SD</option>
+                            <option value="Kelas 3 SD">Kelas 3 SD</option>
+                            <option value="Kelas 4 SD">Kelas 4 SD</option>
+                            <option value="Kelas 5 SD">Kelas 5 SD</option>
+                            <option value="Kelas 6 SD">Kelas 6 SD</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Nama Sekolah / TK *</label>
+                        <input type="text" id="reg-sekolah" required placeholder="TK Melati / SDN 01" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-blue">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Pilihan Kategori Lomba *</label>
+                    <select id="reg-kategori" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-blue">
+                        <option value="Matematika">Matematika Logika (Rp 40.000)</option>
+                        <option value="Coding">Computational Coding (Rp 40.000)</option>
+                        <option value="Bundling Matematika + Coding">Bundling Hemat (Matematika & Coding - Rp 70.000)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nama Orang Tua / Wali *</label>
+                    <input type="text" id="reg-ortu" required placeholder="Nama Ayah/Ibu" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-blue">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nomor WhatsApp Orang Tua (Aktif) *</label>
+                    <input type="tel" id="reg-wa" required placeholder="081234567890" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-blue">
+                </div>
+
+                <div class="bg-blue-50 p-3 rounded-xl border border-blue-200 text-blue-800 text-[11px] leading-relaxed">
+                    <i class="fa-solid fa-circle-info mr-1"></i> Setelah klik simpan, Anda akan diarahkan untuk melakukan konfirmasi via WhatsApp ke Panitia ZAMÉA EDUCATION.
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-blue to-brand-purple text-white font-bold text-sm shadow-md hover:opacity-95 transition-opacity">
+                    Kirim Pendaftaran & Lanjut Konfirmasi WA
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white text-xs px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 transition-all transform translate-y-20 opacity-0 z-50">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-msg">Pesan notifikasi</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="w-8 h-8 rounded-lg bg-brand-blue text-white flex items-center justify-center font-black">ZE</div>
+                    <span class="font-heading font-bold text-white text-base">ZAMÉA EDUCATION</span>
+                </div>
+                <p class="leading-relaxed">Penyelenggara SMARTKIDS COMPETITION - Platform pemfasilitasan kompetisi matematika dan coding terpercaya untuk anak TK & SD.</p>
+            </div>
+            <div>
+                <h5 class="text-white font-bold mb-3">Kontak Panitia WA</h5>
+                <p class="mb-1"><i class="fa-brands fa-whatsapp text-emerald-400 mr-2"></i> Admin ZAMÉA 1: 0812-3456-7890</p>
+                <p><i class="fa-brands fa-whatsapp text-emerald-400 mr-2"></i> Admin ZAMÉA 2: 0898-7654-3210</p>
+            </div>
+            <div>
+                <h5 class="text-white font-bold mb-3">Ketentuan Lomba</h5>
+                <p>Ujian dilaksanakan via sistem web online dengan pengawasan penuh Zoom Meeting untuk transparansi dan integritas.</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-8 pt-6 border-t border-slate-800 text-center text-slate-500">
+            &copy; 2026 ZAMÉA EDUCATION. SMARTKIDS COMPETITION. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Data State
+        var participants = [
+            { id: "SK-101", nama: "Ananda Rizky", kelas: "Kelas 4 SD", sekolah: "SDN Utama 01", kategori: "Matematika", wa: "081298765432", status: "Sudah Dikonfirmasi & Masuk WA Group" },
+            { id: "SK-102", nama: "Clarissa Putri", kelas: "TK B", sekolah: "TK Bintang Kecil", kategori: "Coding", wa: "085712345678", status: "Menunggu Konfirmasi WA" },
+            { id: "SK-103", nama: "Bintang Pratama", kelas: "Kelas 2 SD", sekolah: "SD IT Al-Azhar", kategori: "Bundling Matematika + Coding", wa: "081311223344", status: "Sudah Dikonfirmasi & Masuk WA Group" }
+        ];
+
+        // Quiz State
+        var quizQuestions = [
+            {
+                category: "Matematika Logika (TK B & Kelas 1-2 SD)",
+                question: "Jika 3 buah apel bernilai 15, dan 2 buah pisang bernilai 8. Berapakah hasil dari 1 apel + 1 pisang?",
+                options: ["8", "9", "10", "12"],
+                correct: 1
+            },
+            {
+                category: "Computational Coding (TK & SD)",
+                question: "Sebuah robot berada di kotak A1. Untuk menuju B3, robot harus melangkah:",
+                options: ["1 langkah Kanan, 2 langkah Atas", "2 langkah Kanan, 1 langkah Atas", "3 langkah Atas", "2 langkah Kiri"],
+                correct: 0
+            },
+            {
+                category: "Matematika Logika (Kelas 3-4 SD)",
+                question: "Pola deret angka: 2, 4, 8, 16, X. Berapakah nilai X?",
+                options: ["20", "24", "32", "64"],
+                correct: 2
+            }
+        ];
+
+        var currentQuizIndex = 0;
+        var selectedQuizAnswers = {};
+        var quizTimerSeconds = 300;
+        var timerInterval = null;
+
+        function switchTab(tabId) {
+            var contents = document.querySelectorAll('.tab-content');
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.add('hidden');
+            }
+            
+            var target = document.getElementById('tab-' + tabId);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+
+            var navBtns = document.querySelectorAll('.nav-btn');
+            for (var j = 0; j < navBtns.length; j++) {
+                navBtns[j].classList.remove('active');
+            }
+
+            var activeNavBtn = document.getElementById('nav-' + tabId);
+            if (activeNavBtn) {
+                activeNavBtn.classList.add('active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (tabId === 'demo') {
+                startQuizTimer();
+            }
+        }
+
+        function toggleMobileMenu() {
+            var menu = document.getElementById('mobile-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
+
+        function toggleKisiTab(type) {
+            var mathContent = document.getElementById('kisi-math-content');
+            var codingContent = document.getElementById('kisi-coding-content');
+            var btnMath = document.getElementById('btn-kisi-math');
+            var btnCoding = document.getElementById('btn-kisi-coding');
+
+            if (type === 'math') {
+                mathContent.classList.remove('hidden');
+                codingContent.classList.add('hidden');
+                btnMath.className = "px-5 py-2 rounded-lg font-bold text-sm bg-white text-slate-800 shadow-sm transition-all";
+                btnCoding.className = "px-5 py-2 rounded-lg font-bold text-sm text-slate-600 transition-all";
+            } else {
+                mathContent.classList.add('hidden');
+                codingContent.classList.remove('hidden');
+                btnCoding.className = "px-5 py-2 rounded-lg font-bold text-sm bg-white text-slate-800 shadow-sm transition-all";
+                btnMath.className = "px-5 py-2 rounded-lg font-bold text-sm text-slate-600 transition-all";
+            }
+        }
+
+        function openRegisterModal(defaultCategory) {
+            var cat = defaultCategory || 'Matematika';
+            var modal = document.getElementById('register-modal');
+            var selectCategory = document.getElementById('reg-kategori');
+            if (selectCategory) {
+                selectCategory.value = cat;
+            }
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function closeRegisterModal() {
+            var modal = document.getElementById('register-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function handleRegistrationSubmit(e) {
+            e.preventDefault();
+            var nama = document.getElementById('reg-nama').value;
+            var kelas = document.getElementById('reg-kelas').value;
+            var sekolah = document.getElementById('reg-sekolah').value;
+            var kategori = document.getElementById('reg-kategori').value;
+            var ortu = document.getElementById('reg-ortu').value;
+            var wa = document.getElementById('reg-wa').value;
+
+            var newId = "SK-" + (100 + participants.length + 1);
+
+            var newParticipant = {
+                id: newId,
+                nama: nama,
+                kelas: kelas,
+                sekolah: sekolah,
+                kategori: kategori,
+                wa: wa,
+                status: "Menunggu Konfirmasi WA"
+            };
+
+            participants.push(newParticipant);
+            renderAdminTable();
+            closeRegisterModal();
+            document.getElementById('form-registration').reset();
+
+            var messageText = "Halo Admin ZAMEA EDUCATION,\n\n" +
+                "Saya ingin konfirmasi pendaftaran SMARTKIDS COMPETITION:\n" +
+                "- ID Registrasi: " + newId + "\n" +
+                "- Nama Peserta: " + nama + "\n" +
+                "- Jenjang: " + kelas + "\n" +
+                "- Sekolah: " + sekolah + "\n" +
+                "- Kategori: " + kategori + "\n" +
+                "- Nama Wali: " + ortu + "\n" +
+                "- No WA: " + wa + "\n\n" +
+                "Mohon instruksi selanjutnya untuk masuk ke Grup WhatsApp Resmi peserta. Terima kasih!";
+
+            var encodedMessage = encodeURIComponent(messageText);
+
+            showToast("Pendaftaran berhasil disimpan! Mengarahkan ke WhatsApp...");
+            
+            setTimeout(function() {
+                window.open("https://wa.me/6281234567890?text=" + encodedMessage, '_blank');
+            }, 1000);
+        }
+
+        function copyAccount(elementId) {
+            var el = document.getElementById(elementId);
+            if (!el) return;
+            var text = el.innerText;
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            showToast("Nomor rekening berhasil disalin: " + text);
+        }
+
+        function showToast(message) {
+            var toast = document.getElementById('toast');
+            var toastMsg = document.getElementById('toast-msg');
+            if (toastMsg) toastMsg.innerText = message;
+            if (toast) {
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(function() {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 3000);
+            }
+        }
+
+        function renderQuiz() {
+            var q = quizQuestions[currentQuizIndex];
+            var quizCategoryEl = document.getElementById('quiz-category');
+            var quizQuestionEl = document.getElementById('quiz-question');
+            
+            if (quizCategoryEl) quizCategoryEl.innerText = q.category + " - Soal #" + (currentQuizIndex + 1);
+            if (quizQuestionEl) quizQuestionEl.innerText = q.question;
+
+            var optionsContainer = document.getElementById('quiz-options');
+            if (!optionsContainer) return;
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach(function(opt, idx) {
+                var isSelected = selectedQuizAnswers[currentQuizIndex] === idx;
+                var btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border text-sm font-medium transition-all " +
+                    (isSelected ? 'border-brand-purple bg-purple-50 text-brand-purple font-bold' : 'border-slate-200 hover:bg-slate-50 text-slate-700');
+                btn.onclick = function() { selectQuizAnswer(idx); };
+                btn.innerHTML = '<span class="inline-block w-6 h-6 rounded-full bg-slate-100 text-center leading-6 text-xs mr-3 font-bold">' + String.fromCharCode(65 + idx) + '</span>' + opt;
+                optionsContainer.appendChild(btn);
+            });
+
+            var prevBtn = document.getElementById('btn-prev-quiz');
+            if (prevBtn) prevBtn.disabled = (currentQuizIndex === 0);
+
+            var nextBtn = document.getElementById('btn-next-quiz');
+            if (nextBtn) {
+                if (currentQuizIndex === quizQuestions.length - 1) {
+                    nextBtn.innerText = "Selesaikan Simulasi";
+                    nextBtn.className = "px-5 py-2 rounded-xl bg-emerald-600 text-white font-bold text-sm hover:bg-emerald-700";
+                } else {
+                    nextBtn.innerText = "Selanjutnya";
+                    nextBtn.className = "px-5 py-2 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-blue-600";
+                }
+            }
+        }
+
+        function selectQuizAnswer(optIdx) {
+            selectedQuizAnswers[currentQuizIndex] = optIdx;
+            renderQuiz();
+        }
+
+        function nextQuestion() {
+            if (currentQuizIndex < quizQuestions.length - 1) {
+                currentQuizIndex++;
+                renderQuiz();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuizIndex > 0) {
+                currentQuizIndex--;
+                renderQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            if (timerInterval) clearInterval(timerInterval);
+
+            var score = 0;
+            quizQuestions.forEach(function(q, idx) {
+                if (selectedQuizAnswers[idx] === q.correct) {
+                    score++;
+                }
+            });
+
+            var quizContainer = document.getElementById('quiz-container');
+            var quizResult = document.getElementById('quiz-result');
+            var quizScore = document.getElementById('quiz-score');
+
+            if (quizContainer) quizContainer.classList.add('hidden');
+            if (quizResult) quizResult.classList.remove('hidden');
+            if (quizScore) quizScore.innerText = score + " / " + quizQuestions.length;
+        }
+
+        function resetQuiz() {
+            currentQuizIndex = 0;
+            selectedQuizAnswers = {};
+            quizTimerSeconds = 300;
+            var quizContainer = document.getElementById('quiz-container');
+            var quizResult = document.getElementById('quiz-result');
+            if (quizContainer) quizContainer.classList.remove('hidden');
+            if (quizResult) quizResult.classList.add('hidden');
+            startQuizTimer();
+            renderQuiz();
+        }
+
+        function startQuizTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(function() {
+                quizTimerSeconds--;
+                if (quizTimerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    finishQuiz();
+                }
+                var mins = String(Math.floor(quizTimerSeconds / 60)).padStart(2, '0');
+                var secs = String(quizTimerSeconds % 60).padStart(2, '0');
+                var timerEl = document.getElementById('demo-timer');
+                if (timerEl) timerEl.innerText = mins + ":" + secs;
+            }, 1000);
+        }
+
+        function renderAdminTable() {
+            var tbody = document.getElementById('admin-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            participants.forEach(function(p, index) {
+                var tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors";
+
+                var statusBadge = p.status.indexOf('Sudah') !== -1 ?
+                    '<span class="px-2 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">' + p.status + '</span>' :
+                    '<span class="px-2 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700">' + p.status + '</span>';
+
+                tr.innerHTML = 
+                    '<td class="p-3 font-mono font-bold text-brand-blue">' + p.id + '</td>' +
+                    '<td class="p-3 font-bold text-slate-800">' + p.nama + '</td>' +
+                    '<td class="p-3">' + p.kelas + ' (' + p.sekolah + ')</td>' +
+                    '<td class="p-3"><span class="px-2 py-0.5 bg-purple-50 text-brand-purple rounded font-semibold">' + p.kategori + '</span></td>' +
+                    '<td class="p-3 font-mono">' + p.wa + '</td>' +
+                    '<td class="p-3">' + statusBadge + '</td>' +
+                    '<td class="p-3 text-right">' +
+                        '<button onclick="toggleParticipantStatus(' + index + ')" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[11px] font-semibold">' +
+                            '<i class="fa-solid fa-arrows-rotate mr-1"></i> Ubah Status' +
+                        '</button>' +
+                    '</td>';
+                tbody.appendChild(tr);
+            });
+        }
+
+        function toggleParticipantStatus(index) {
+            if (participants[index].status.indexOf('Sudah') !== -1) {
+                participants[index].status = "Menunggu Konfirmasi WA";
+            } else {
+                participants[index].status = "Sudah Dikonfirmasi & Masuk WA Group";
+            }
+            renderAdminTable();
+            showToast("Status peserta " + participants[index].nama + " telah diperbarui!");
+        }
+
+        function exportParticipants() {
+            var csvContent = "data:text/csv;charset=utf-8,ID,Nama Peserta,Kelas,Sekolah,Kategori,No WA,Status\n";
+            participants.forEach(function(p) {
+                csvContent += p.id + ',"' + p.nama + '","' + p.kelas + '","' + p.sekolah + '","' + p.kategori + '",' + p.wa + ',"' + p.status + '"\n';
+            });
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "SMARTKIDS_Participants_ZAMEA.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        window.onload = function() {
+            renderQuiz();
+            renderAdminTable();
+        };
+    </script>
+</body>
+</html>
